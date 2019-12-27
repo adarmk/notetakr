@@ -4,31 +4,102 @@
   font-family: 'Open Sans', sans-serif; 
 }
 
-.container {
-  /*display:flex;*/
-}
+/***************************** SIDEBAR *****************************/
 .sidebar {
   background-color: #464646;
-  width: 332px; 
+  width: 332px;
+  display: flex;
+  flex-direction: column;
   position: fixed;
-  overflow-y: scroll;
   top: 0;
   left: 0;
   bottom: 0;
-
-  /*font stuff*/
+  overscroll-behavior: contain;
 }
 
-.sidebar h1 {
+.item-scroll {
+  
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  position: relative;
+
+  margin-top: 15px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-top: solid #969696 1px;
+
+}
+
+.note-title-sidebar {
+  font-size: 15px;
+  font-weight: 700;
   color: white;
+  margin: 0;
+  margin-left: 24px;
+}
+
+.note-preview {
+  font-size: 13px;
+  color: white;
+  margin: 0;
+}
+
+.note-item {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 20px;
+
+  border-bottom: solid #969696 1px;
+}
+
+.note-preview {
+  margin: 0;
+  margin-top: 5px;
+  margin-left: 24px;
+
+
 }
 
 .app-title {
-  padding-left: 24px;
+  margin-left: 24px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: white;
 }
 
+.text-button {
+  color: #C7C7C7;
+  font-size: 18px;
+  font-weight: 400;
+  display: flex;
+  margin-bottom: 10px;
+  margin: 0;
+  margin-left: 24px;
+
+}
+
+.text-button:hover {
+  color: #e0e0e0;
+}
+.logout {
+  background: url('./assets/logout.svg');
+  height: 18px;
+  width: 18px;
+  color: #C7C7C7;
+  margin: 0;
+
+  transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+
+}
+
+/***************************** NOTE PAGE *****************************/
 .note-page {
   position: relative;
+  scroll-behavior: smooth;
   margin-left: 332px; 
   padding-left: 310px;
   padding-right:310px;
@@ -37,8 +108,12 @@
 
 .note-title {
   font-size: 45px;
+  outline: none;
 }
 
+.note-text {
+  outline: none;
+}
 .date {
   font-size: 20;
   text-align: center;

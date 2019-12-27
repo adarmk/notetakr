@@ -5,8 +5,8 @@ export default class Sidebar extends Component {
         return   (
             <div className="note-page">
                 <p className="date">December 25, 2019</p>
-                <h1 className="note-title">Hello</h1>
-                <p>Hello friends</p>
+                <h1 contenteditable="true" className="note-title">Hello</h1>
+                <p contenteditable="true" className="note-text">Hello friends</p>
             </div>
         )
     }
