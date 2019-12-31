@@ -5,6 +5,8 @@
 }
 
 /***************************** SIDEBAR *****************************/
+.sidebar *:focus {outline: none;}
+
 .sidebar {
   background-color: #464646;
   width: 332px;
@@ -31,6 +33,24 @@
 
 }
 
+.note-item {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  border-bottom: solid #969696 1px;
+}
+
+.note-item-active {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  border-bottom: solid #969696 1px;
+  
+
+  background-color: #AEDBE6;
+  color: #505050;
+}
+
 .note-title-sidebar {
   font-size: 15px;
   font-weight: 700;
@@ -39,26 +59,28 @@
   margin-left: 24px;
 }
 
+.note-item-active .note-title-sidebar {
+  font-size: 15px;
+  font-weight: 700;
+  color: #505050;
+  margin: 0;
+  margin-left: 24px;
+}
+
 .note-preview {
   font-size: 13px;
   color: white;
   margin: 0;
+  margin-top: 5px;
+  margin-left: 24px;
 }
 
-.note-item {
-  margin: 0;
-  padding-top: 5px;
-  padding-bottom: 20px;
-
-  border-bottom: solid #969696 1px;
-}
-
-.note-preview {
+.note-item-active .note-preview {
+  font-size: 13px;
+  color: #505050;
   margin: 0;
   margin-top: 5px;
   margin-left: 24px;
-
-
 }
 
 .app-title {
