@@ -1,22 +1,36 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Link} from "react-router-dom"
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import axios from 'axios'; 
 import './App.css';
 import Sidebar from "./components/sidebar.component"; 
 import Notepage from "./components/notepage.component"; 
+import Consumer, {Context} from './context'; 
 
 class App extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props); 
-    this.state = {
-      hello: "hello"
-    }
-  }
+    /*this.getCurrentNoteId = this.getCurrentNoteId.bind(this);
+  }*/
+
+  /*getCurrentNoteId = (idFrmChild) => {
+      this.setState({currentNoteId: idFrmChild});
+      this.getNote();
+  }*/
+
   render () {
     return (
-      <Router>
-          <Sidebar/>
-          <Notepage /*date_modified={currentNote.date_modified} note_title={currentNote.note_title} note_body={currentNote.note_body}*//>
-      </Router>
+      <Context>
+        <Router>
+            <Sidebar /*parentCallback={this.getCurrentNoteId}*//>
+            <Consumer>
+              {(context) => (
+                <Notepage date_modified={context.state.currentNoteDate} 
+                note_title={context.state.currentNoteTitle} 
+                note_body={context.state.currentNoteBody}/>
+              )}
+            </Consumer>
+        </Router>
+      </Context>
     )
   }
 }

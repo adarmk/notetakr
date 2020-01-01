@@ -60,8 +60,11 @@ noteRoutes.route('/update/:id').post(function(req, res) {
     });
 });
 
+
+//Create note
 noteRoutes.route('/add').post(function(req, res) {
     let note = new Note(); 
+    note.date_modified = moment().format('dddd MMMM Do YYYY');
     note.save()
         .then(note => {
             res.status(200).json({'note': 'note added successfully'})            

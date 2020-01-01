@@ -1,5 +1,8 @@
 import React, { Component } from 'react'; 
+import ReactDOM from 'react-dom';
 import NoteItem from './note-item.component';
+import Consumer from '../context';
+
 //import { Link } from 'react-router-dom';
 import axios from 'axios'; 
 
@@ -15,7 +18,8 @@ export default class Sidebar extends Component {
     constructor(props) {
         super(props); 
         this.state = {
-            notes: [],     
+            notes: [],  
+            currentNoteId: ''   
         }; 
     }
 
@@ -29,9 +33,9 @@ export default class Sidebar extends Component {
             })
     }
 
-    noteList () { //Displays all notes in the sidebar
+    noteList (updateNote) { //Displays all notes in the sidebar
         
-        return this.state.notes.map(function(currentNote, i){
+        return this.state.notes.map((currentNote, i) => {
             //Limiting the note preview length to 52 characters
             let sliceTo;
             if (currentNote.note_body.length < 52) {
@@ -39,27 +43,35 @@ export default class Sidebar extends Component {
             } else {
                 sliceTo = 52; 
             }
-            return <NoteItem note_id={currentNote.id} note_title={currentNote.note_title} note_preview={currentNote.note_body.slice(0, sliceTo) + (sliceTo === 52 ? "..." : '')} key={i}/>;
+            return <NoteItem updateNote={updateNote} note_id={currentNote._id} tabIndex={i} note_title={currentNote.note_title} note_preview={currentNote.note_body.slice(0, sliceTo) + (sliceTo === 52 ? "..." : '')} key={i}/>;
         })
     }
 
-
-    //User interaction methods
-    selectNote () {
-        
+    /*getCurrentNoteId = (idFrmChild) => {
+        this.setState({currentNoteId: idFrmChild})
+        this.sendNoteId();
     }
+
+    sendNoteId = () => {
+        this.props.parentCallback(this.state.currentNoteId)
+    }*/
 
     render () {
         return   (
-            <div className="sidebar">
-                <h1 className="app-title">NoteTakr</h1>
-                <h2 className="text-button">Log out</h2>
-                <h2 className="text-button">New note</h2>
-                <div className="item-scroll">
-                    { this.noteList() }
-                </div>
-            </div>
-        
+            <Consumer>
+                {(context) => (
+                    <React.Fragment>
+                        <div className="sidebar">
+                            <h1 className="app-title">NoteTakr</h1>
+                            <h2 className="text-button">Log out</h2>
+                            <h2 className="text-button">New note</h2>
+                            <div className="item-scroll">
+                                { this.noteList(context.updateNote) }
+                            </div>
+                         </div>
+                    </React.Fragment>
+                )}
+            </Consumer>
         )
     }
 }
