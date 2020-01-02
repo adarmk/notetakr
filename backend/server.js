@@ -67,12 +67,13 @@ noteRoutes.route('/add').post(function(req, res) {
     note.date_modified = moment().format('dddd MMMM Do YYYY');
     note.save()
         .then(note => {
-            res.status(200).json({'note': 'note added successfully'})            
+            res.status(200).json(note)            
         })
         .catch(err => {
             res.status(400).send('adding new todo failed'); 
         });
 });
+
 
 
 app.use('/notes', noteRoutes)

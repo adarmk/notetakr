@@ -1,17 +1,9 @@
 import React, { Component } from 'react'; 
-import ReactDOM from 'react-dom';
 import NoteItem from './note-item.component';
 import Consumer from '../context';
 
 //import { Link } from 'react-router-dom';
 import axios from 'axios'; 
-
-/*const NoteItem = props => (
-    <div onClick={this.setState({active: true})} className={this.state.active ? "note-item-active" : "note-item"}>
-        <h3 className="note-title-sidebar">{props.note_title}</h3>
-        <p className="note-preview">{props.note_body}</p>
-    </div>
-)*/
 
 export default class Sidebar extends Component {
 
@@ -21,6 +13,8 @@ export default class Sidebar extends Component {
             notes: [],  
             currentNoteId: ''   
         }; 
+
+        this.createNote = this.createNote.bind(this);
     }
 
     componentDidMount() { //Gets all notes from db in JSON format
@@ -34,7 +28,6 @@ export default class Sidebar extends Component {
     }
 
     noteList (updateNote) { //Displays all notes in the sidebar
-        
         return this.state.notes.map((currentNote, i) => {
             //Limiting the note preview length to 52 characters
             let sliceTo;
@@ -43,18 +36,18 @@ export default class Sidebar extends Component {
             } else {
                 sliceTo = 52; 
             }
-            return <NoteItem updateNote={updateNote} note_id={currentNote._id} tabIndex={i} note_title={currentNote.note_title} note_preview={currentNote.note_body.slice(0, sliceTo) + (sliceTo === 52 ? "..." : '')} key={i}/>;
+            return <NoteItem updateNote={updateNote} note_id={currentNote._id} note_title={currentNote.note_title} note_preview={currentNote.note_body.slice(0, sliceTo) + (sliceTo === 52 ? "..." : '')} key={i}/>;
         })
     }
 
-    /*getCurrentNoteId = (idFrmChild) => {
-        this.setState({currentNoteId: idFrmChild})
-        this.sendNoteId();
+    createNote () {
+        axios.post('http://localhost:4000/notes/add').then(res => {
+            console.log(res.data)
+            let temp = this.state.notes; 
+            temp.push(res.data); 
+            this.setState({notes: temp}, () => document.getElementById(res.data._id).focus()); 
+        });  
     }
-
-    sendNoteId = () => {
-        this.props.parentCallback(this.state.currentNoteId)
-    }*/
 
     render () {
         return   (
@@ -63,8 +56,8 @@ export default class Sidebar extends Component {
                     <React.Fragment>
                         <div className="sidebar">
                             <h1 className="app-title">NoteTakr</h1>
-                            <h2 className="text-button">Log out</h2>
-                            <h2 className="text-button">New note</h2>
+                            <button className="text-button">Log out</button>
+                            <button className="text-button" onClick={this.createNote}>New note</button>
                             <div className="item-scroll">
                                 { this.noteList(context.updateNote) }
                             </div>

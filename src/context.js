@@ -8,9 +8,9 @@ const {Provider, Consumer} = createContext();
 class Context extends Component {
   state = {
     currentNoteId: '',
-    currentNoteDate: 'December 2019',
-    currentNoteTitle: 'Hello there',
-    currentNoteBody: 'Wys fams'
+    currentNoteDate: '',
+    currentNoteTitle: '',
+    currentNoteBody: ''
   };
 
   updateNote = (id) => {
