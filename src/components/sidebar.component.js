@@ -38,6 +38,7 @@ export default class Sidebar extends Component {
             }
             console.log(currentNote._id);
             return <NoteItem    updateNote={updateNote} 
+                                key={currentNote._id}
                                 note_id={currentNote._id} 
                                 note_title={currentNote.note_title} 
                                 note_preview={currentNote.note_body.slice(0, sliceTo) + (sliceTo === 52 ? "..." : '')} 
@@ -56,18 +57,23 @@ export default class Sidebar extends Component {
     }
 
     deleteNote (id) {
-        console.log(id)
-        axios.delete('http://localhost:4000/notes/delete/'+id).then(res => { //Delete notes
-            console.log(res.data); 
+        if (this.state.notes.length > 0) {
+            console.log(id)
+            axios.delete('http://localhost:4000/notes/delete/'+id).then(res => { //Delete notes
+                console.log(res.data);
+                //Creates a filtered version of this.state.notes without the note that was just deleted from the database
+                let temp = this.state.notes.filter(function(note){ 
+                    return note._id !== id;
+                }); 
 
-            //Creates a filtered version of this.state.notes without the note that was just deleted from the database
-            let temp = this.state.notes.filter(function(note){ 
-                return note._id !== id;
-            }); 
-
-            this.setState({notes: temp}, ()=>console.log(this.state.notes)); //Updates this.state.notes
-            
-        });
+                //Updates this.state.notes and focuses on first element as long as there is at least one element
+                    this.setState({notes: temp}, ()=> {
+                        if (this.state.notes.length > 0) {
+                            document.getElementById(this.state.notes[0]._id).focus()
+                        }
+                    }); 
+            });
+        }
     }
 
     render () {

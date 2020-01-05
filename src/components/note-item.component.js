@@ -32,7 +32,7 @@ export default class NoteItem extends Component {
                     onBlur={this._onBlur} 
                     className={this.state.active ? "note-item-active" : "note-item"}
             >
-                <h3 className="note-title-sidebar">{this.props.note_title}</h3>
+                <h3 className="note-title-sidebar">{this.props.note_id}</h3>
                 <p className="note-preview">{this.props.note_preview}</p>
             </div>
         )
