@@ -1,8 +1,8 @@
 import React, { Component } from 'react'; 
 import NoteItem from './note-item.component';
 import Consumer from '../context';
-
-//import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { faTrash } from '@fortawesome/free-solid-svg-icons'; 
 import axios from 'axios'; 
 
 export default class Sidebar extends Component {
@@ -10,11 +10,11 @@ export default class Sidebar extends Component {
     constructor(props) {
         super(props); 
         this.state = {
-            notes: [],  
-            currentNoteId: ''   
+            notes: []  
         }; 
 
         this.createNote = this.createNote.bind(this);
+        this.deleteNote = this.deleteNote.bind(this); 
     }
 
     componentDidMount() { //Gets all notes from db in JSON format
@@ -36,17 +36,38 @@ export default class Sidebar extends Component {
             } else {
                 sliceTo = 52; 
             }
-            return <NoteItem updateNote={updateNote} note_id={currentNote._id} note_title={currentNote.note_title} note_preview={currentNote.note_body.slice(0, sliceTo) + (sliceTo === 52 ? "..." : '')} key={i}/>;
+            console.log(currentNote._id);
+            return <NoteItem    updateNote={updateNote} 
+                                note_id={currentNote._id} 
+                                note_title={currentNote.note_title} 
+                                note_preview={currentNote.note_body.slice(0, sliceTo) + (sliceTo === 52 ? "..." : '')} 
+                    />;
         })
     }
 
     createNote () {
-        axios.post('http://localhost:4000/notes/add').then(res => {
+        axios.post('http://localhost:4000/notes/add').then(res => { //Adds note to database
             console.log(res.data)
-            let temp = this.state.notes; 
-            temp.push(res.data); 
-            this.setState({notes: temp}, () => document.getElementById(res.data._id).focus()); 
+
+            let temp = this.state.notes; //Creates temporary variable to hold notes array
+            temp.push(res.data);  //Appends the new note to said array
+            this.setState({notes: temp}, () => document.getElementById(res.data._id).focus()); //Updates notes array w/ new array in state
         });  
+    }
+
+    deleteNote (id) {
+        console.log(id)
+        axios.delete('http://localhost:4000/notes/delete/'+id).then(res => { //Delete notes
+            console.log(res.data); 
+
+            //Creates a filtered version of this.state.notes without the note that was just deleted from the database
+            let temp = this.state.notes.filter(function(note){ 
+                return note._id !== id;
+            }); 
+
+            this.setState({notes: temp}, ()=>console.log(this.state.notes)); //Updates this.state.notes
+            
+        });
     }
 
     render () {
@@ -58,6 +79,13 @@ export default class Sidebar extends Component {
                             <h1 className="app-title">NoteTakr</h1>
                             <button className="text-button">Log out</button>
                             <button className="text-button" onClick={this.createNote}>New note</button>
+
+                            <button     className="trash-btn"
+                                        onClick={()=>this.deleteNote(context.state.currentNoteId)}
+                            >
+                                <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+                            </button>
+
                             <div className="item-scroll">
                                 { this.noteList(context.updateNote) }
                             </div>

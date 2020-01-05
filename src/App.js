@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+//import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import './App.css';
 import Sidebar from "./components/sidebar.component"; 
 import Notepage from "./components/notepage.component"; 
@@ -19,16 +19,14 @@ class App extends Component {
   render () {
     return (
       <Context>
-        <Router>
-            <Sidebar /*parentCallback={this.getCurrentNoteId}*//>
-            <Consumer>
-              {(context) => (
-                <Notepage date_modified={context.state.currentNoteDate} 
-                note_title={context.state.currentNoteTitle} 
-                note_body={context.state.currentNoteBody}/>
-              )}
-            </Consumer>
-        </Router>
+        <Sidebar /*parentCallback={this.getCurrentNoteId}*//>
+        <Consumer>
+          {(context) => (
+            <Notepage date_modified={context.state.currentNoteDate} 
+            note_title={context.state.currentNoteTitle} 
+            note_body={context.state.currentNoteBody}/>
+          )}
+        </Consumer>
       </Context>
     )
   }

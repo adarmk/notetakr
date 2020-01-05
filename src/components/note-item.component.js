@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 import '../App.js';
-import Consumer from '../context'; 
+//import Consumer from '../context'; 
 
 export default class NoteItem extends Component {
     constructor(props) {
@@ -14,18 +14,15 @@ export default class NoteItem extends Component {
         this._onBlur = this._onBlur.bind(this);
     }
 
-    /*sendNoteId = () => {
-        this.props.parentCallback(this.state.id);
-    }*/
-
     _onFocus () {
         this.setState({active : true}, () => this.props.updateNote(this.state.id)); 
+        console.log(`Focused on: ${this.state.id}`);
     }
 
     _onBlur () {
-        this.setState({active : false});
+            this.setState({active : false});
     }
-
+    
     render () {
         return   (
             <div    

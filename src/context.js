@@ -15,7 +15,7 @@ class Context extends Component {
 
   updateNote = (id) => {
     this.setState({currentNoteId: id}, () => {
-        axios.get('http://localhost:4000/notes/'+this.state.currentNoteId)
+        axios.get('http://localhost:4000/notes/'+id)
       .then(response => {
         this.setState({
           currentNoteDate: response.data.date_modified, 

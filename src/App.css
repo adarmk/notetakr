@@ -34,14 +34,14 @@
 }
 
 .note-item {
-  margin: 0;
+  margin: 0 auto;
   padding-top: 5px;
   padding-bottom: 20px;
   border-bottom: solid #969696 1px;
 }
 
 .note-item-active {
-  margin: 0;
+  margin: 0 auto;
   padding-top: 5px;
   padding-bottom: 20px;
   border-bottom: solid #969696 1px;
@@ -83,6 +83,21 @@
   margin-left: 24px;
 }
 
+.trash-btn {
+  font-size: 20px;
+  padding: 0;
+  color: white;
+  background: none; 
+  border: none; 
+  position: absolute;
+  left: 85%;
+  top: 8%;
+}
+
+.trash-btn:hover {
+  color: rgb(180, 49, 49);
+}
+
 .app-title {
   margin-left: 24px;
   margin-top: 15px;
@@ -91,6 +106,7 @@
 }
 
 .text-button {
+  width: fit-content;
   color: #C7C7C7;
   font-size: 18px;
   font-weight: 400;
