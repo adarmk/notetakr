@@ -41,12 +41,13 @@ noteRoutes.route('/:id').get(function(req, res) {
 });
 
 //Update note
-noteRoutes.route('/update/:id').post(function(req, res) {
-    Note.findById(req.params.id, function(err, note) {
+noteRoutes.route('/update/:id').put(function(req, res) {
+    console.log("Update note is running in backend");
+    Note.findById(req.body._id, function(err, note) {
         if(!note) {
             res.status(404).send("Data not found"); 
         } else {
-            note.date_modified = moment().format('dddd MMMM Do YYYY');
+            note.date_modified = moment().format('dddd MMMM D, YYYY');
             note.note_title = req.body.note_title; 
             note.note_body = req.body.note_body; 
 
@@ -63,7 +64,7 @@ noteRoutes.route('/update/:id').post(function(req, res) {
 //Create note
 noteRoutes.route('/add').post(function(req, res) {
     let note = new Note(); 
-    note.date_modified = moment().format('dddd MMMM D YYYY');
+    note.date_modified = moment().format('dddd MMMM D, YYYY');
     note.save()
         .then(note => {
             res.status(200).json(note)            

@@ -13,7 +13,7 @@ class Context extends Component {
     currentNoteBody: ''
   };
 
-  updateNote = (id) => {
+  renderCurrentNote = (id) => {
     this.setState({currentNoteId: id}, () => {
         axios.get('http://localhost:4000/notes/'+id)
       .then(response => {
@@ -29,11 +29,20 @@ class Context extends Component {
     }); 
   }
 
+  updateState = (date, title, body) => {
+    this.setState({
+      currentNoteDate: date, 
+      currentNoteTitle: title, 
+      currentNoteBody: body
+    })
+  }
+
   render(){
     return(
       <Provider value={{
         state: this.state, //Giving components access to global state
-        updateNote: this.updateNote //Allows components to update ID
+        renderCurrentNote: this.renderCurrentNote, //Allows components to update ID
+        updateContextState: this.updateState
       }}>
         {this.props.children}
       </Provider>

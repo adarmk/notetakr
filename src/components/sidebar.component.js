@@ -27,7 +27,7 @@ export default class Sidebar extends Component {
             })
     }
 
-    noteList (updateNote) { //Displays all notes in the sidebar
+    noteList (renderCurrentNote) { //Displays all notes in the sidebar
         return this.state.notes.map((currentNote, i) => {
             //Limiting the note preview length to 52 characters
             let sliceTo;
@@ -36,8 +36,7 @@ export default class Sidebar extends Component {
             } else {
                 sliceTo = 52; 
             }
-            console.log(currentNote._id);
-            return <NoteItem    updateNote={updateNote} 
+            return <NoteItem    renderCurrentNote={renderCurrentNote} 
                                 key={currentNote._id}
                                 note_id={currentNote._id} 
                                 note_title={currentNote.note_title} 
@@ -93,7 +92,7 @@ export default class Sidebar extends Component {
                             </button>
 
                             <div className="item-scroll">
-                                { this.noteList(context.updateNote) }
+                                { this.noteList(context.renderCurrentNote) }
                             </div>
                          </div>
                     </React.Fragment>

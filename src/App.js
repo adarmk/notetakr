@@ -22,9 +22,15 @@ class App extends Component {
         <Sidebar /*parentCallback={this.getCurrentNoteId}*//>
         <Consumer>
           {(context) => (
-            <Notepage date_modified={context.state.currentNoteDate} 
-            note_title={context.state.currentNoteTitle} 
-            note_body={context.state.currentNoteBody}/>
+            <Notepage   
+                        note_id={context.state.currentNoteId}
+                        date_modified={context.state.currentNoteDate} 
+                        note_title={context.state.currentNoteTitle} 
+                        note_body={context.state.currentNoteBody}
+                        updateContextState={context.updateContextState}
+
+
+            />
           )}
         </Consumer>
       </Context>
