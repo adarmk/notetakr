@@ -29,18 +29,11 @@ export default class Sidebar extends Component {
 
     noteList (renderCurrentNote) { //Displays all notes in the sidebar
         return this.state.notes.map((currentNote, i) => {
-            //Limiting the note preview length to 52 characters
-            let sliceTo;
-            if (currentNote.note_body.length < 52) {
-                sliceTo = currentNote.note_body.length;
-            } else {
-                sliceTo = 52; 
-            }
             return <NoteItem    renderCurrentNote={renderCurrentNote} 
                                 key={currentNote._id}
                                 note_id={currentNote._id} 
                                 note_title={currentNote.note_title} 
-                                note_preview={currentNote.note_body.slice(0, sliceTo) + (sliceTo === 52 ? "..." : '')} 
+                                note_preview={currentNote.note_body} 
                     />;
         })
     }

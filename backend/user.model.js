@@ -8,10 +8,4 @@ let NotesSchema = new Schema ({
     note_body: {type: String, default: "Write your next novel here!"}
 })
 
-let UserSchema = new Schema({
-    username: {type: String},
-    password: {type: String},
-    notes: [NotesSchema]
-})
-
 module.exports = mongoose.model('Note', NotesSchema);
