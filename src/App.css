@@ -142,9 +142,10 @@
 .note-page {
   position: relative;
   scroll-behavior: smooth;
+  width: 700px; 
   margin-left: 332px; 
-  padding-left: 310px;
-  padding-right:310px;
+  padding-left: 15%;
+  padding-right:10%;
 
 }
 
