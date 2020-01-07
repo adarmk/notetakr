@@ -3,6 +3,12 @@ import axios from 'axios';
 const moment = require('moment');
 
 export default class NotePage extends Component {
+    state = {
+        note_id: '',
+        date_modified: '', 
+        note_title: '',
+        note_body: ''
+    }
 
     updateNote = () => {
         
@@ -14,7 +20,7 @@ export default class NotePage extends Component {
 
         }
 
-        this.props.updateContextState(updateObj.date_modified, updateObj.note_title, updateObj.note_body);
+        //this.props.updateContextState(updateObj.date_modified, updateObj.note_title, updateObj.note_body);
         axios.put('http://localhost:4000/notes/update/'+updateObj._id, updateObj)
         .then(res=> console.log(res.data))
         .catch(error => console.log(error));
